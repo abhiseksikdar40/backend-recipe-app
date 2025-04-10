@@ -24,8 +24,8 @@ app.listen(PORT, () => {
 async function createRecipeData(newRecipeData) {
    try {
     const createRecipe = new RecipeApp(newRecipeData)
-    await createRecipe.save()
-    return createRecipe
+    const savedRecipe = await createRecipe.save()
+    return savedRecipe
    } catch (error) {
     console.log("Error Creating Recipe Data", error);
    }
