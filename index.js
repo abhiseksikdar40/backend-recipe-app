@@ -26,7 +26,7 @@ async function createRecipeData(newRecipeData) {
     const createRecipe = new RecipeApp(newRecipeData)
     await createRecipe.save()
     return createRecipe
-   } catch {
+   } catch (error) {
     console.log("Error Creating Recipe Data", error);
    }
 }
@@ -58,7 +58,7 @@ app.get("/recipes", async (req, res) => {
         if(getRecipe.length != 0) {
             res.json(getRecipe)
         } else {
-            res.json(404).json({error: "Recipe Not Found!"})
+            res.status(404).json({error: "Recipe Not Found!"})
         }
     } catch (error) {
         res.status(500).json({error: "Failed To Get All Recipes!"})
@@ -83,7 +83,7 @@ app.get("/recipes/:title", async (req, res) => {
         if(recipeByTitle) {
             res.json(recipeByTitle)
         } else {
-            res.json(404).json({error: "Recipe Not Found!"})
+            res.status(404).json({error: "Recipe Not Found!"})
         }
     } catch (error) {
         res.status(500).json({error: "Failed To Get Recipes By Title!"})
@@ -108,7 +108,7 @@ app.get("/recipes/author/:author", async (req, res) => {
         if(recipeByAuthor.length != 0) {
             res.json(recipeByAuthor)
         } else {
-            res.json(404).json({error: "Recipe Not Found!"})
+            res.status(404).json({error: "Recipe Not Found!"})
         }
     } catch (error) {
         res.status(500).json({error: "Failed To Get Recipes By Author!"})
@@ -132,7 +132,7 @@ app.get("/recipes/level/:difficulty", async (req, res) => {
         if(recipeByDifficulty.length != 0) {
             res.json(recipeByDifficulty)
         } else {
-            res.json(404).json({error: "Recipe Not Found!"})
+            res.status(404).json({error: "Recipe Not Found!"})
         }
     } catch (error) {
         res.status(500).json({error: "Failed To Get Recipes By Difficulty Level!"})
@@ -157,7 +157,7 @@ app.post("/recipes/diff/:recipeId", async (req, res) => {
         if(updatedRecipe) {
             res.status(200).json({message: "Recipe Data Updated Successfully.", recipe: updatedRecipe})
         } else {
-            res.json(404).json({error: "Recipe Not Found!"})
+            res.status(404).json({error: "Recipe Not Found!"})
         }
     } catch (error) {
         res.status(500).json({error: "Failed To Update Recipe Difficulty Level!"})
@@ -182,7 +182,7 @@ app.post("/recipes/name/:recipeTitle", async (req, res) => {
         if(updatedRecipe) {
             res.status(200).json({message: "Recipe Data Updated Successfully.", recipe: updatedRecipe})
         } else {
-            res.json(404).json({error: "Recipe Not Found!"})
+            res.status(404).json({error: "Recipe Not Found!"})
         }
     } catch (error) {
         res.status(500).json({error: "Failed To Update Recipe Details!"})
@@ -207,7 +207,7 @@ app.delete("/recipes/delete/:recipeId", async (req, res) => {
         if(deletedRecipe) {
             res.status(200).json({message: "Recipe Data Deleted Successfully."})
         } else {
-            res.json(404).json({error: "Recipe Not Found!"})
+            res.status(404).json({error: "Recipe Not Found!"})
         }
     } catch (error) {
         res.status(500).json({error: "Failed To Delete Recipe Details!"})
